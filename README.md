@@ -15,17 +15,17 @@ This project uses synthetic Electronic Health Record (EHR) data to analyze real-
 
 ## 🔍 Key Questions Answered
 
-1. **Cost Analysis**
-   - What are the costliest procedures and encounter types?
-   - Are there high-cost patients that may be avoidable (e.g., repeat ER users)?
+### 1. **Cost Analysis**
+- What are the costliest procedures and encounter types?
+- Are there high-cost patients that may be avoidable (e.g., repeat ER users)?
 
-2. **Care Gaps**
-   - Are diabetic patients getting regular HbA1c tests?
-   - Are medications being prescribed to allergic patients?
-   - Are patients with chronic care plans receiving related medications?
+### 2. **Care Gaps**
+- Are diabetic patients getting regular HbA1c tests?
+- Are medications being prescribed to allergic patients?
+- Are patients with chronic care plans receiving related medications?
 
-3. **Business Value**
-   - How can these insights guide targeted interventions and cost reduction?
+### 3. **Business Value**
+- How can these insights guide targeted interventions and cost reduction?
 
 ---
 
@@ -33,7 +33,7 @@ This project uses synthetic Electronic Health Record (EHR) data to analyze real-
 
 - **Source:** [Synthea](https://synthea.mitre.org/downloads)
 - **Type:** Public, privacy-safe synthetic EHR data
-- **Format:** CSV files — patients.csv, conditions.csv, encounters.csv, observations.csv, allergies.csv, medications.csv, careplans.csv
+- **Format:** CSV files — `patients.csv`, `conditions.csv`, `encounters.csv`, `observations.csv`, `allergies.csv`, `medications.csv`, `careplans.csv`
 - **Note:** This project only uses selected columns with **non-null, high-quality data**. Columns with excessive missingness are excluded, and no imputation or outlier treatment has been applied.
 
 ---
@@ -47,23 +47,26 @@ This project uses synthetic Electronic Health Record (EHR) data to analyze real-
 
 ---
 
-### 🧪 Methodology
+## 🔬 Methodology
+
 This is a goal-driven analysis — we only cleaned and transformed what we needed to answer specific questions.
 
-Resource	Purpose	Key Actions
-patients.csv	Demographics, age, income, insurance	Age calculation, selected columns, merged with chronic flags
-conditions.csv	Identify chronic illnesses	Tagged using keyword-based chronic condition detection
-encounters.csv	Analyze ER use & top costs	Segmented emergency visits, total cost by procedure, repeat user analysis
-observations.csv	Lab tests (HbA1c)	Extracted only diabetes-related results
-allergies.csv	Patient allergy info	Cross-checked against medications for safety issues
-medications.csv	Medication history	Filtered for chronic meds, linked to allergies and careplans
-careplans.csv	Chronic care plans	Mapped care plan patients to related medication activity
+| Resource        | Purpose                            | Key Actions                                                                |
+|-----------------|------------------------------------|----------------------------------------------------------------------------|
+| `patients.csv`  | Demographics, age, income, insurance | Age calculation, selected columns, merged with chronic flags             |
+| `conditions.csv`| Identify chronic illnesses          | Tagged using keyword-based chronic condition detection                    |
+| `encounters.csv`| Analyze ER use & top costs          | Segmented emergency visits, total cost by procedure, repeat user analysis |
+| `observations.csv`| Lab tests (HbA1c)                 | Extracted only diabetes-related results                                   |
+| `allergies.csv` | Patient allergy info                | Cross-checked against medications for safety issues                       |
+| `medications.csv`| Medication history                 | Filtered for chronic meds, linked to allergies and careplans              |
+| `careplans.csv` | Chronic care plans                  | Mapped care plan patients to related medication activity                  |
 
-Merge Strategy: All datasets linked by PATIENT ID
-Missing Data: No imputation; only essential nulls removed
-EDA: Focused on medically relevant aggregations, not generic statistics
+- **Merge Strategy:** All datasets linked by `PATIENT` ID  
+- **Missing Data:** No imputation; only essential nulls removed 
+- **EDA Focus:** Medically relevant aggregations, not generic statistics  
 
---
+---
+
 ## 📈 Key Findings & Insights
 
 ### 1. 🧬 Chronic Condition Prevalence
@@ -92,14 +95,12 @@ EDA: Focused on medically relevant aggregations, not generic statistics
 - Out of 77 patients with chronic care plans, only 58 received relevant chronic medications.
 - **25% (19 patients)** didn’t receive recommended treatment — suggesting a care coordination or follow-up issue.
 
-
 ---
 
 ## 📂 File Structure
-
-text
+```text
 /healthcare-cost-care-optimization/
 │
-├── data/                            # resource csv data
-├── Healthcare_Analysis.ipynb        # Full Jupyter notebook with all analysis 
-├── README.md                        # Project documentation
+├── data/ # Resource CSV data
+├── Healthcare_Analysis.ipynb # Full Jupyter notebook with all analysis
+├── README.md # Project documentation
